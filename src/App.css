@@ -1,0 +1,406 @@
+/* GLOBAL */
+
+.app {
+  padding: 24px;
+  background: #f8fafc;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  background: #f8fafc;
+}
+
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 24px;
+  align-items: start;
+  margin-top: 20px;
+}
+
+.side-section {
+  position: sticky;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: #d97706; /* golden tone like your screenshot */
+  font-weight: 800;
+  font-size: 28px;
+  letter-spacing: 0.3px;
+}
+
+/* HEADER */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  font-size: 40px;
+  color: #d69509;
+}
+
+.timeframe-btn.active {
+  background: #2563eb;
+  color: #fff;
+}
+
+
+/* GRID  effect */
+.pairs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+/* STATS CARDS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.card {
+  display:grid;
+  background: white;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+}
+
+.card.primary {
+  background: linear-gradient(135deg, #38bdf8, #22d3ee);
+  color: white;
+}
+
+.card h3 {
+  font-size: 14px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.card h2 {
+  font-size: 26px;
+  margin: 6px 0 0;
+}
+
+/* FILTER */
+.filter {
+  margin: 40px 0;
+}
+
+
+/* MARKET OVERVIEW */
+.market-overview {
+  background: white;
+  border-radius: 16px;
+  padding: 12px;
+  min-height: 520px;
+}
+
+/* SIDE PANEL */
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel {
+  background: white;
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.panel h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+/* LIST ITEMS */
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.list-item.green {
+  background: #ecfdf5;
+  color: #16a34a;
+}
+
+.list-item.red {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.timeframes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.tf-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  background: #e5e7eb;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.tf-btn.active {
+  background: #2563eb;
+  color: white;
+}
+
+/* MAIN GRID */
+.main-grid {
+  display: grid;
+  grid-template-columns: 3fr 1.2fr;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.main-section {
+  width: 100%;
+}
+
+.list-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.list-row:last-child {
+  border-bottom: none;
+}
+
+.up {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.down {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* CARD */
+
+.pair-card {
+  background: #fffdf7;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  border-left: 4px solid;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pair-card.up {
+  border-color: #16a34a;
+  color: #15803d;
+   border-left: 5px solid #16a34a;
+}
+
+.pair-card.down {
+  border-color: #dc2626;
+  color: #b91c1c;
+  border-left: 5px solid #dc2626;
+}
+
+.pair-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.symbol {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.price {
+  font-size: 18px;
+  color: #6b7280;
+  opacity: 0.8;
+}
+
+.percent {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.pair-card.up .percent {
+  color: #16a34a;
+}
+
+.pair-card.down .percent {
+  color: #dc2626;
+}
+
+/* SIDE PANEL */
+.side-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.side-card h3 {
+  margin-bottom: 10px;
+}
+
+/* ROW */
+.side-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  animation: pulseUpdate 0.35s ease;
+  }
+
+.side-row.up {
+  background: #ecfdf5;
+  color: #15803d;
+}
+
+.side-row.down {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+
+/* TITLE */
+.side-title {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.side-title.gain {
+  color: #0f9d58;
+}
+
+.side-title.loss {
+  color: #d93025;
+}
+
+
+/* GAINERS */
+.side-row.gain {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.side-row.gain .percent {
+  color: #0f9d58;
+  font-weight: 600;
+}
+
+/* LOSERS */
+.side-row.loss {
+  background: #fef2f2;
+  color: #7f1d1d;
+}
+
+.side-row.loss .percent {
+  color: #d93025;
+  font-weight: 600;
+}
+
+/* HOVER */
+.side-row:hover {
+  transform: translateX(4px);
+}
+
+/* pulse autorefresh  */
+
+@keyframes pulseUpdate {
+  0% {
+    opacity: 0.6;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* volumn  logic */
+
+.volume {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+.right-panel {
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+}
+
+.last-update {
+  font-size: 12px;
+  color: #666;
+  margin: 6px 0 12px 2px;
+}
+
+.volume-spike {
+  box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.6);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,193,7,.6); }
+  70% { box-shadow: 0 0 0 10px rgba(255,193,7,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,193,7,0); }
+}
+
+/* star logic */
+
+.star {
+  font-size: 22px;          /* 🔥 INCREASE SIZE */
+  margin-left: 6px;
+  cursor: pointer;
+  color: #cfcfcf;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.star.active {
+  color: #f5b301;           /* Gold */
+  transform: scale(2.25);   /* 🔥 Bigger when active */
+}
+
+.star:hover {
+  color: #f5b301;           /* Gold */
+  transform: scale(5.3);   /* 🔥 Bigger when active */
+}
+
