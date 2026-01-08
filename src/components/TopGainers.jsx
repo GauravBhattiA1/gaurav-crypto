@@ -37,6 +37,12 @@ export default function TopGainers({ pairs }) {
           <div className="percent">
             +{p.percent.toFixed(2)}%
           </div>
+            <div> {/* 🔍 DEBUG SMA FLAGS */}
+            <p style={{ fontSize: "12px", marginTop: "4px" }}>
+              {p.sma50Rising ? "🟢50" : "🔴50"} |{" "}
+              {p.sma200Rising ? "🟢200" : "🔴200"}
+            </p>
+          </div>
         </div>
       ))}
     </div>

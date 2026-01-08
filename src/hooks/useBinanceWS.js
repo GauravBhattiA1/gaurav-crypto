@@ -9,6 +9,7 @@ export default function useBinanceWS(timeframe) {
   const latestTickers = useRef([]);
   const openPrices = useRef({}); // symbol_timeframe -> open
   const historyRef = useRef({});
+  const priceHistoryRef = useRef({}); // symbol -> price[]
  
 
   /* -----------------------------
@@ -79,6 +80,89 @@ export default function useBinanceWS(timeframe) {
       const calculated = usdt.map(d => {
       const open = openPrices.current[`${d.s}_${timeframe}`];
       const price = +d.c;
+
+      // 🔥 PRICE HISTORY FOR SMA
+      const prevPrices = priceHistoryRef.current[d.s] || [];
+      const updatedPrices = [...prevPrices.slice(-201), price];
+      priceHistoryRef.current[d.s] = updatedPrices;
+
+      // ================= SMA CALCULATION =================
+const calcSMA = (arr, len) => {
+  if (arr.length < len) return null;
+  return arr.slice(-len).reduce((a, b) => a + b, 0) / len;
+};
+
+const sma50Current = calcSMA(updatedPrices, 50);
+const sma200Current = calcSMA(updatedPrices, 200);
+
+const sma50Prev =
+  updatedPrices.length >= 51
+    ? calcSMA(updatedPrices.slice(0, -1), 50)
+    : null;
+
+const sma200Prev =
+  updatedPrices.length >= 201
+    ? calcSMA(updatedPrices.slice(0, -1), 200)
+    : null;
+
+// ================= TIMEFRAME MODE =================
+const isHTF =
+  timeframe === "1d" ||
+  timeframe === "1w" ||
+  timeframe.startsWith("custom");
+
+const isMidTF =
+  timeframe === "5m" ||
+  timeframe === "15m" ||
+  timeframe === "30m";
+
+const isScalpTF = timeframe === "1m";
+
+// ================= FINAL COLOR LOGIC =================
+
+      // 🔹 SMA 50
+      const sma50Rising = isHTF
+        ? sma50Current !== null &&
+          sma200Current !== null &&
+          sma50Current > sma200Current // structure
+        : isMidTF
+        ? sma50Current !== null && price > sma50Current // position
+        : sma50Current !== null &&
+          sma50Prev !== null &&
+          sma50Current > sma50Prev; // slope
+
+      // 🔹 SMA 200
+      const sma200Rising = isHTF
+        ? sma200Current !== null &&
+          price > sma200Current // structure
+        : isMidTF
+        ? sma200Current !== null && price > sma200Current // position
+        : sma200Current !== null &&
+          sma200Prev !== null &&
+          sma200Current > sma200Prev; // slope
+
+
+              // ================= MA CROSS DETECTION =================
+
+      // Golden Cross (50 crosses ABOVE 200)
+      const goldenCross =
+        sma50Prev !== null &&
+        sma200Prev !== null &&
+        sma50Current !== null &&
+        sma200Current !== null &&
+        sma50Prev <= sma200Prev &&
+        sma50Current > sma200Current;
+
+      // Death Cross (50 crosses BELOW 200)
+      const deathCross =
+        sma50Prev !== null &&
+        sma200Prev !== null &&
+        sma50Current !== null &&
+        sma200Current !== null &&
+        sma50Prev >= sma200Prev &&
+        sma50Current < sma200Current;
+
+
       const percent = open ? ((price - open) / open) * 100 : 0;
 
       // 🔥 MINI SPARKLINE HISTORY (ADD HERE)
@@ -91,6 +175,13 @@ export default function useBinanceWS(timeframe) {
         price,
         percent,
         volume: +d.v,
+
+        sma50Rising,
+        sma200Rising,
+
+        goldenCross,
+        deathCross,
+
 
         // 🔥 ATTACH SPARKLINE POINTS
         sparkline: updated.map(

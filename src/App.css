@@ -404,3 +404,7 @@ h1 {
   transform: scale(5.3);   /* 🔥 Bigger when active */
 }
 
+.weak {
+  opacity: 0.4;
+  pointer-events: none;
+}
