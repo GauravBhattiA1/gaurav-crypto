@@ -34,9 +34,18 @@ export default function useBinanceWS(timeframe) {
   console.log("WS Connected");
 };
 
+ws.onopen = () => {
+  console.log("WS Connected");
+};
+
 ws.onmessage = (event) => {
   console.log("MESSAGE RECEIVED", event.data);
-  latestTickers.current = JSON.parse(event.data);
+
+  try {
+    latestTickers.current = JSON.parse(event.data);
+  } catch (err) {
+    console.error("PARSE ERROR", err);
+  }
 };
 
 ws.onerror = (err) => {
@@ -46,9 +55,6 @@ ws.onerror = (err) => {
 ws.onclose = (e) => {
   console.log("WS CLOSED", e);
 };
-
-    ws.onerror = () => {};
-    ws.onopen = () => {};
 
     return () => {
       try {
