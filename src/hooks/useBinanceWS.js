@@ -99,6 +99,10 @@ ws.onclose = (e) => {
     async function calculate() {
       console.log("Tickers Count:", latestTickers.current.length);
 
+if (!latestTickers.current.length) {
+  return;
+}
+
       const usdt = latestTickers.current
         .filter(d => d.s.endsWith("USDT"))
         .slice(0, 50);
