@@ -96,13 +96,16 @@ ws.onclose = (e) => {
   useEffect(() => {
     let cancelled = false;
 
-    async function calculate() {
-      console.log("Tickers Count:", latestTickers.current.length);
 
-if (!latestTickers.current.length) {
-  return;
-}
+async function calculate() {
+  try {
+    console.log("Tickers Count:", latestTickers.current.length);
 
+    if (!latestTickers.current.length) return;
+
+    // your existing code
+
+    
       const usdt = latestTickers.current
   .filter(d => typeof d?.s === "string")
   .filter(d => d.s.endsWith("USDT"))
@@ -250,12 +253,20 @@ const isScalpTF = timeframe === "1m";
       console.log("USDT Count:", usdt.length);
 console.log("Calculated Count:", calculated.length);
 console.log("First Item:", calculated[0]);
-      setPairs(calculated.slice(0, 50));
-      setLastUpdate(new Date());
-      
-    }
 
-    const interval = setInterval(calculate, 1000);
+
+    console.log("USDT Count:", usdt.length);
+    console.log("Calculated Count:", calculated.length);
+
+    setPairs(calculated.slice(0, 50));
+    setLastUpdate(new Date());
+
+  } catch (err) {
+    console.error("CALCULATE ERROR:", err);
+  }
+}
+
+ const interval = setInterval(calculate, 1000);
 
     return () => {
       cancelled = true;
