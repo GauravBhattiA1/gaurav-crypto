@@ -104,8 +104,9 @@ if (!latestTickers.current.length) {
 }
 
       const usdt = latestTickers.current
-        .filter(d => d.s.endsWith("USDT"))
-        .slice(0, 50);
+  .filter(d => typeof d?.s === "string")
+  .filter(d => d.s.endsWith("USDT"))
+  .slice(0, 50)
 
       // 1️⃣ FETCH MISSING OPENS
       await Promise.all(
