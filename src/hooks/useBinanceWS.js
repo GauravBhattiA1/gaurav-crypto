@@ -108,7 +108,7 @@ async function calculate() {
    const usdt = latestTickers.current
   .filter(d => typeof d?.symbol === "string")
   .filter(d => d.symbol.endsWith("USDT"))
-  .slice(0, 50);
+  .slice(0, 90);
 
 console.log("USDT Count:", usdt.length);
 console.log("First Item:", usdt[0]);
