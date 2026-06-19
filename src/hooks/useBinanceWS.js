@@ -30,9 +30,22 @@ export default function useBinanceWS(timeframe) {
     );
     wsRef.current = ws;
 
-    ws.onmessage = (event) => {
-      latestTickers.current = JSON.parse(event.data);
-    };
+    ws.onopen = () => {
+  console.log("WS Connected");
+};
+
+ws.onmessage = (event) => {
+  console.log("MESSAGE RECEIVED", event.data);
+  latestTickers.current = JSON.parse(event.data);
+};
+
+ws.onerror = (err) => {
+  console.error("WS ERROR", err);
+};
+
+ws.onclose = (e) => {
+  console.log("WS CLOSED", e);
+};
 
     ws.onerror = () => {};
     ws.onopen = () => {};
