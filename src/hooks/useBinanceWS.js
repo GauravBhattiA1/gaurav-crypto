@@ -246,6 +246,9 @@ const isScalpTF = timeframe === "1m";
       );
 
       // 🔥 Show only Top N movers (recommended: 30–50)
+      console.log("USDT Count:", usdt.length);
+console.log("Calculated Count:", calculated.length);
+console.log("First Item:", calculated[0]);
       setPairs(calculated.slice(0, 50));
       setLastUpdate(new Date());
       
