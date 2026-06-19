@@ -70,7 +70,7 @@ ws.onclose = (e) => {
     let cancelled = false;
 
     async function calculate() {
-      if (!latestTickers.current.length) return;
+      console.log("Tickers Count:", latestTickers.current.length);
 
       const usdt = latestTickers.current
         .filter(d => d.s.endsWith("USDT"))
