@@ -26,7 +26,7 @@ export default function useBinanceWS(timeframe) {
     if (wsRef.current) return; // 🔒 singleton WS
 
     const ws = new WebSocket(
-      "wss://stream.binance.com:9443/ws/!ticker@arr"
+      "wss://fstream.binance.com/ws/!ticker@arr"
     );
     wsRef.current = ws;
 
