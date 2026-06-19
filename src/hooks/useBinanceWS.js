@@ -11,7 +11,34 @@ export default function useBinanceWS(timeframe) {
   const historyRef = useRef({});
   const priceHistoryRef = useRef({}); // symbol -> price[]
  
+/* -----------------------------
+   LOAD TICKERS VIA REST API
+------------------------------*/
+useEffect(() => {
+  const loadTickers = async () => {
+    try {
+      const res = await fetch(
+        "https://api.binance.com/api/v3/ticker/24hr"
+      );
 
+      const data = await res.json();
+
+      console.log("Loaded tickers:", data.length);
+
+      latestTickers.current = data;
+    } catch (err) {
+      console.error("Ticker Fetch Error:", err);
+    }
+  };
+
+  loadTickers();
+
+  const timer = setInterval(loadTickers, 5000);
+
+  return () => clearInterval(timer);
+}, []);
+
+  
   /* -----------------------------
      RESET OPEN CACHE ON TF CHANGE
   ------------------------------*/
