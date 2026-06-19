@@ -116,15 +116,15 @@ console.log("First Item:", usdt[0]);
       // 1️⃣ FETCH MISSING OPENS
       await Promise.all(
         usdt.map(async d => {
-          const key = `${d.s}_${timeframe}`;
+          const key = `${d.symbol}_${timeframe}`;
           if (openPrices.current[key]) return;
 
           let open;
           if (timeframe.startsWith("custom")) {
             const minutes = parseInt(timeframe.split("-")[1]);
-            open = await fetchCustomOpen(d.s, minutes);
+            open = await fetchCustomOpen(d.symbol, minutes);
           } else {
-            open = await fetchCandleOpen(d.s, timeframe);
+            open = await fetchCandleOpen(d.symbol, timeframe);
           }
           openPrices.current[key] = open;
         })
@@ -134,13 +134,18 @@ console.log("First Item:", usdt[0]);
 
       // 2️⃣ CALCULATE %
       const calculated = usdt.map(d => {
-      const open = openPrices.current[`${d.s}_${timeframe}`];
-      const price = +d.c;
+      const open = openPrices.current[`${d.symbol}_${timeframe}`];
+      const price = parseFloat(
+  d.lastPrice ||
+  d.weightedAvgPrice ||
+  d.prevClosePrice ||
+  0
+);
 
       // 🔥 PRICE HISTORY FOR SMA
-      const prevPrices = priceHistoryRef.current[d.s] || [];
+      const prevPrices = priceHistoryRef.current[d.symbol] || [];
       const updatedPrices = [...prevPrices.slice(-201), price];
-      priceHistoryRef.current[d.s] = updatedPrices;
+      priceHistoryRef.current[d.symbol] = updatedPrices;
 
       // ================= SMA CALCULATION =================
 const calcSMA = (arr, len) => {
@@ -222,12 +227,12 @@ const isScalpTF = timeframe === "1m";
       const percent = open ? ((price - open) / open) * 100 : 0;
 
       // 🔥 MINI SPARKLINE HISTORY (ADD HERE)
-      const prev = historyRef.current[d.s] || [];
+      const prev = historyRef.current[d.symbol] || [];
       const updated = [...prev.slice(-9), percent];
-      historyRef.current[d.s] = updated;
+      historyRef.current[d.symbol] = updated;
 
       return {
-        symbol: d.s,
+        symbol:d.symbol,
         price,
         percent,
         volume: +d.v,
