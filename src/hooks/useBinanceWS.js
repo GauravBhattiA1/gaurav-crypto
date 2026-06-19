@@ -105,11 +105,14 @@ async function calculate() {
 
     // your existing code
 
+    const usdt = latestTickers.current.slice(0, 50);
+
+    console.log("Sample:", usdt[0]);
     
-      const usdt = latestTickers.current
+/*      const usdt = latestTickers.current
   .filter(d => typeof d?.s === "string")
   .filter(d => d.s.endsWith("USDT"))
-  .slice(0, 50)
+  .slice(0, 50)    */
 
       // 1️⃣ FETCH MISSING OPENS
       await Promise.all(
