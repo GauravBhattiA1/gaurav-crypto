@@ -265,7 +265,7 @@ console.log("First Item:", calculated[0]);
     console.log("USDT Count:", usdt.length);
     console.log("Calculated Count:", calculated.length);
 
-    setPairs(calculated.slice(0, 50));
+    setPairs(calculated.slice(0, 80));
     setLastUpdate(new Date());
 
   } catch (err) {
